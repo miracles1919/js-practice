@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>demo</title>
+  <style>
+    .single {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .multiline {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+    }
+
+    .multiline-height {
+      overflow: hidden;
+      max-height: 60px;
+      line-height: 20px;
+    }
+
+    .multiline-pseudo {
+      overflow: hidden;
+      max-height: 60px;
+      line-height: 20px;
+      position: relative;
+    }
+
+    .multiline-pseudo::after {
+      content: '...';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      padding: 0 10px 0 5px;
+      background-color: #fff;
+    }
+
+    .multiline-float {
+      overflow: hidden;
+      max-height: 60px;
+      line-height: 20px;
+    }
+
+    .multiline-float::before {
+      float: left;
+      content: '';
+      width: 20px;
+      height: 60px;
+    }
+
+    .multiline-float >div {
+      float: right;
+      width: 100%;
+      margin-left: -20px;
+      word-break: break-all;
+    }
+
+    .multiline-float::after {
+      float: right;
+      content: '...';
+      width: 20px;
+      height: 20px;
+      position: relative;
+      left: 100%;
+      transform: translate(-100%, -100%);
+      background-color: #fff;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div class="single">
+    网络空间测绘作为网络空间安全的关键基础工程，近年来受到了学术界、产业界和政府部门的高度关注。作为这一概念的提出者，sdfdfsdfs作者在本书中较为系统地阐述了网络空间测绘的概念、国内外相关研究动态，以及作者及其团队在网络空间测绘领域的新研究进展。
+  </div>
+  <br />
+  <div class="multiline">
+    网络空间测绘作为网络空间安全的关键基础工程，近年来受到了学术界、产业界和政府部门的高度关注。作为这一概念的提出者，sdfdfsdfs作者在本书中较为系统地阐述了网络空间测绘的概念、国内外相关研究动态，以及作者及其团队在网络空间测绘领域的新研究进展。
+  </div>
+  <br />
+  <div class="js-multi"></div>
+  <br />
+  <div class="multiline-height">
+    网络空间测绘作为网络空间安全的关键基础工程，近年来受到了学术界、产业界和政府部门的高度关注。作为这一概念的提出者，sdfdfsdfs作者在本书中较为系统地阐述了网络空间测绘的概念、国内外相关研究动态，以及作者及其团队在网络空间测绘领域的新研究进展。
+  </div>
+  <br />
+  <div class="multiline-pseudo">
+    网络空间测绘作为网络空间安全的关键基础工程，近年来受到了学术界、产业界和政府部门的高度关注。作为这一概念的提出者，sdfdfsdfs作者在本书中较为系统地阐述了网络空间测绘的概念、国内外相关研究动态，以及作者及其团队在网络空间测绘领域的新研究进展。
+  </div>
+  <br />
+  <div class="multiline-float">
+    <div>
+      网络空间测绘作为网络空间安全的关键基础工程，近年来受到了学术界、产业界和政府部门的高度关注。作为这一概念的提出者，sdfdfsdfs作者在本书中较为系统地阐述了网络空间测绘的概念、国内外相关研究动态，以及作者及其团队在网络空间测绘领域的新研究进展。
+    </div>
+  </div>
+</body>
+
+<script>
+  const text = '网络空间测绘作为网络空间安全的关键基础工程，近年来受到了学术界、产业界和政府部门的高度关注。作为这一概念的提出者，sdfdfsdfs作者在本书中较为系统地阐述了网络空间测绘的概念、国内外相关研究动态，以及作者及其团队在网络空间测绘领域的新研究进展。'
+  const textLen = text.length
+
+  const format = () => {
+    const elm = document.getElementsByClassName('js-multi')[0]
+    const line = 3
+    const baseWidth = window.getComputedStyle(elm).width
+    const baseFontSize = window.getComputedStyle(elm).fontSize
+    const lineWidth = baseWidth.slice(0, -2)
+    const fontWidth = baseFontSize.slice(0, -2)
+
+    // 计算一行可容纳的字数
+    const strNum = Math.floor(lineWidth / fontWidth)
+
+    let content = text
+
+    const totalNum = Math.floor(strNum * line)
+    const lastIndex = totalNum - textLen
+    console.log(totalNum, textLen)
+    if (textLen > totalNum) {
+      content = text.slice(0, lastIndex - 2).concat('...')
+    }
+
+    elm.innerHTML = content
+  }
+
+  format()
+
+  window.onresize = () => format()
+</script>
+
+</html>
