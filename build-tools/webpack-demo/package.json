@@ -3,12 +3,16 @@
   "version": "1.0.0",
   "description": "webpack demo",
   "scripts": {
-    "build": "webpack"
+    "build": "webpack",
+    "build2": "webpack --config ./webpack.config2.js"
   },
   "author": "lujie",
   "license": "MIT",
   "devDependencies": {
+    "terser-webpack-plugin": "^5.2.5",
     "webpack": "^5.64.4",
     "webpack-cli": "^4.9.1"
-  }
+  },
+  "dependencies": {},
+  "sideEffects": false
 }
